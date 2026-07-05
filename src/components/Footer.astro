@@ -1,0 +1,21 @@
+---
+const year = 2026;
+const socials = [
+  { label: 'GitHub', href: 'https://github.com' },
+  { label: 'Email', href: 'mailto:hello@codeshow.cc' },
+  { label: 'RSS', href: '/rss.xml' },
+];
+---
+
+<footer class="border-t border-white/5 py-10">
+  <div class="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 px-6 text-sm text-zinc-500 md:flex-row">
+    <p class="font-mono">© {year} Jack · 用代码与 AI 构建</p>
+    <div class="flex gap-5">
+      {socials.map((s) => (
+        <a href={s.href} class="transition-colors hover:text-neon-cyan" target="_blank" rel="noopener">
+          {s.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</footer>

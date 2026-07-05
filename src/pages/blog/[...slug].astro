@@ -1,0 +1,131 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import AuroraBackground from '../../components/AuroraBackground';
+import CursorGlow from '../../components/CursorGlow';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: post,
+  }));
+}
+
+type Props = CollectionEntry<'blog'>;
+const post = Astro.props as Props;
+const { Content } = await post.render();
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<Layout title={`${post.data.title} · Jack`} description={post.data.description}>
+  <AuroraBackground client:load />
+  <CursorGlow client:load />
+  <Navbar />
+
+  <article class="mx-auto max-w-3xl px-6 pb-20 pt-32">
+    <a href="/#blog" class="mb-8 inline-block font-mono text-sm text-zinc-500 transition-colors hover:text-neon-cyan">
+      ← 返回博客
+    </a>
+
+    <h1 class="text-4xl font-bold leading-tight text-white md:text-5xl">{post.data.title}</h1>
+    <p class="mt-4 text-lg text-zinc-400">{post.data.description}</p>
+
+    <div class="mt-6 flex flex-wrap items-center gap-4 border-b border-white/5 pb-6 font-mono text-sm text-zinc-500">
+      <time>{fmt(post.data.pubDate)}</time>
+      <span class="flex flex-wrap gap-3">
+        {post.data.tags.map((t) => (
+          <span class="text-neon-purple/80">#{t}</span>
+        ))}
+      </span>
+    </div>
+
+    <div class="article-body mt-10">
+      <Content />
+    </div>
+  </article>
+
+  <Footer />
+</Layout>
+
+<style is:global>
+  .article-body {
+    color: rgb(212 212 216);
+    font-size: 1.05rem;
+    line-height: 1.85;
+  }
+  .article-body h2 {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: white;
+  }
+  .article-body h3 {
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: rgb(244 244 245);
+  }
+  .article-body p {
+    margin-bottom: 1.25rem;
+  }
+  .article-body a {
+    color: rgb(34 211 238);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .article-body code {
+    padding: 0.15em 0.4em;
+    border-radius: 0.3rem;
+    background: rgba(255, 255, 255, 0.06);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.9em;
+    color: rgb(228 228 231);
+  }
+  .article-body pre {
+    margin: 1.5rem 0;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.75rem;
+    background: rgba(10, 10, 20, 0.6);
+    overflow-x: auto;
+  }
+  .article-body pre code {
+    padding: 0;
+    background: transparent;
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+  .article-body ul,
+  .article-body ol {
+    margin: 1rem 0 1.5rem;
+    padding-left: 1.5rem;
+  }
+  .article-body ul {
+    list-style: disc;
+  }
+  .article-body ol {
+    list-style: decimal;
+  }
+  .article-body li {
+    margin-bottom: 0.5rem;
+  }
+  .article-body blockquote {
+    margin: 1.5rem 0;
+    padding: 0.5rem 0 0.5rem 1.25rem;
+    border-left: 3px solid rgb(168 85 247);
+    color: rgb(161 161 170);
+  }
+  .article-body hr {
+    margin: 2.5rem 0;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+</style>

@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AuroraBackground from '../components/AuroraBackground';
+import CursorGlow from '../components/CursorGlow';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero';
+import About from '../components/About.astro';
+import Projects from '../components/Projects';
+import BlogList from '../components/BlogList.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+  <AuroraBackground client:load />
+  <CursorGlow client:load />
+  <Navbar />
+  <main>
+    <Hero client:load />
+    <About />
+    <Projects client:visible />
+    <BlogList />
+  </main>
+  <Footer />
+</Layout>

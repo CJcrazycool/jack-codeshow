@@ -1,0 +1,45 @@
+---
+const skills = ['JavaScript', 'TypeScript', 'React', 'Node.js', 'Python', 'Astro', 'Docker', 'Linux', 'Claude Code', 'MCP'];
+const stats = [
+  { num: '∞', label: '好奇心' },
+  { num: '24/7', label: '在折腾' },
+  { num: 'AI', label: '第一生产力' },
+];
+---
+
+<section id="about" class="mx-auto max-w-5xl px-6 py-28">
+  <div class="mb-14">
+    <p class="font-mono text-sm text-neon-cyan">// 01. 关于我</p>
+    <h2 class="mt-3 text-4xl font-bold text-white">一个相信工具为人服务的人</h2>
+  </div>
+
+  <div class="grid gap-10 md:grid-cols-[1.6fr_1fr]">
+    <div class="space-y-5 text-lg leading-relaxed text-zinc-400">
+      <p>
+        我是 Jack，一个喜欢把想法变成产品的创造者。白天写代码，晚上折腾各种新工具，
+        最近沉迷于用 <span class="text-zinc-200">AI Agent</span> 把重复的运维、写作、部署工作自动化。
+      </p>
+      <p>
+        我相信<span class="text-gradient font-medium">独立部署</span>不该是少数人的特权：
+        一个 VPS、一个域名，加上 AI，任何人都能拥有自己的一片数字领地。
+        这个网站就是用这种方式搭起来的，从写代码到上线，全程 AI 协作。
+      </p>
+      <div class="flex flex-wrap gap-2 pt-2">
+        {skills.map((s) => (
+          <span class="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 font-mono text-sm text-zinc-300 transition-colors hover:border-neon-cyan/50 hover:text-white">
+            {s}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <div class="glass flex flex-col justify-center gap-6 rounded-2xl p-8">
+      {stats.map((s) => (
+        <div>
+          <div class="text-3xl font-bold text-gradient">{s.num}</div>
+          <div class="mt-1 text-sm text-zinc-500">{s.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

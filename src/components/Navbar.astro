@@ -1,0 +1,49 @@
+---
+const links = [
+  { href: '#home', label: '首页' },
+  { href: '#about', label: '关于' },
+  { href: '#projects', label: '作品' },
+  { href: '#blog', label: '博客' },
+];
+---
+
+<header
+  id="navbar"
+  class="fixed inset-x-0 top-0 z-50 transition-all duration-300"
+>
+  <nav class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+    <a href="#home" class="font-mono text-lg font-semibold text-white">
+      <span class="text-gradient">jack</span>.codeshow
+    </a>
+    <ul class="hidden items-center gap-8 text-sm text-zinc-400 md:flex">
+      {links.map((l) => (
+        <li>
+          <a href={l.href} class="transition-colors hover:text-white">{l.label}</a>
+        </li>
+      ))}
+    </ul>
+    <a
+      href="https://github.com"
+      target="_blank"
+      rel="noopener"
+      class="rounded-full border border-white/15 px-4 py-1.5 text-sm text-zinc-200 transition-colors hover:border-neon-cyan/60 hover:text-white"
+    >
+      GitHub
+    </a>
+  </nav>
+</header>
+
+<script>
+  // 滚动时给导航加毛玻璃背景
+  const navbar = document.getElementById('navbar');
+  const onScroll = () => {
+    if (!navbar) return;
+    if (window.scrollY > 24) {
+      navbar.classList.add('backdrop-blur-xl', 'bg-ink-950/60', 'border-b', 'border-white/5');
+    } else {
+      navbar.classList.remove('backdrop-blur-xl', 'bg-ink-950/60', 'border-b', 'border-white/5');
+    }
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
